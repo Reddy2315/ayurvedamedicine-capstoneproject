@@ -1,0 +1,18 @@
+<button mat-raised-button color="primary"  class="back-btn" (click)="goBack()">Back</button>
+
+<div *ngIf="medicine" class="medicine-details-container">
+  <!-- <h3>Are you sure, you want to delete {{ medicine.name }}</h3> -->
+  
+  <p><strong>Medicine Name:</strong> {{ medicine.name }}</p>
+  <p><strong>Price:</strong> {{ medicine.price }}</p>
+  <p><strong>Company Name:</strong> {{ medicine.companyName }}</p>
+  <p><strong>Category:</strong> {{ medicine.category.name }}</p>
+  <p><strong>MFD:</strong> {{ medicine.mfd | date }}</p>
+  <p><strong>Expiry Date:</strong> {{ medicine.expiryDate | date }}</p>
+
+  <div class="button-container">
+    <button mat-raised-button color="warn" (click)="deleteMedicine()">Delete Medicine</button>
+    <button mat-raised-button color="primary" (click)="goBack()">Cancel</button>
+  </div>
+</div>
+

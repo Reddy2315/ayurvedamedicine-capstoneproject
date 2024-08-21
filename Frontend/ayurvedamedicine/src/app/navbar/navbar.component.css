@@ -1,0 +1,74 @@
+.app-title {
+  font-size: 30px; /* Adjust font size for responsiveness */
+  color: blue;
+  margin-bottom: 10px;
+}
+
+mat-toolbar {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping of items */
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px; /* Add padding to the toolbar */
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 2000;
+  background-color: #f1f3ff; /* Ensure the background color is visible */
+}
+
+
+.logo {
+  height: 50px; 
+  max-width: fit-content;
+  margin-right: 10px; 
+  margin-bottom: 10px;
+  border-radius: 50px;
+}
+
+
+.user-email {
+  margin: 0 10px;
+  font-weight: normal;
+  color: blueviolet;
+}
+
+button {
+  margin: 5px;
+}
+
+.active-link {
+  border-bottom: 2px solid blue;
+  font-weight: bold;
+}
+
+.search-field {
+  width: 100%;
+  max-width: 300px; /* Adjust max-width as needed */
+  margin-top:5px
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  .search-field {
+    max-width: 100%; /* Full width on small screens */
+    margin: 0; /* Remove side margin on small screens */
+  }
+
+  mat-toolbar {
+    flex-direction: column; /* Stack items vertically on small screens */
+    align-items: flex-start;
+  }
+
+  .app-title {
+    font-size: 24px; /* Smaller font size on small screens */
+  }
+
+  .user-email {
+    font-size: 12px; /* Smaller font size on small screens */
+  }
+}

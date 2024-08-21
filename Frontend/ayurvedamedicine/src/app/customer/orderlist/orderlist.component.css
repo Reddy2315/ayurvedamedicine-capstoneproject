@@ -1,0 +1,38 @@
+button {
+    margin: 10px 0px 0px 10px;
+}
+
+
+h2{
+    font-weight: bold;
+    color: blueviolet;
+}
+.order-list-container {
+    padding: 20px;
+}
+
+.order-card {
+    margin-bottom: 20px;
+}
+
+.order-details-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.order-details-table th,
+.order-details-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.order-details-table th {
+    background-color: #f4f4f4;
+}
+
+.order-summary {
+    text-align: right;
+    font-weight: bold;
+}

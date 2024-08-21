@@ -1,0 +1,51 @@
+/* Container styling */
+.form-container {
+  background-color: #ffffff; /* White background for the container */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  padding: 16px; /* Padding inside the container */
+  max-width: 800px; /* Maximum width */
+  margin: 20px  auto; /* Center container horizontally */
+}
+
+h3{
+  color: #1976d2;
+  font-weight: bolder;
+  text-align: center;
+}
+
+button {
+  margin: 10px 10px ;
+  padding: 5px 20px;
+  font-size: 16px;
+}
+
+/* Form styling */
+.medicine-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Form field styling */
+.medicine-form-field {
+  width: 100%;
+}
+
+/* Button container styling */
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+/* Ensure the button is responsive */
+button.mat-raised-button {
+  width: 100%; /* Full-width button on smaller screens */
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .form-container {
+    padding: 8px; /* Less padding on smaller screens */
+  }
+}

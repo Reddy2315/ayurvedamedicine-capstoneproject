@@ -1,0 +1,309 @@
+package com.wipro.ayurvedamedicine.service.impl;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.wipro.ayurvedamedicine.dto.OrderDTO;
+import com.wipro.ayurvedamedicine.dto.OrderItemDTO;
+import com.wipro.ayurvedamedicine.entity.Customer;
+import com.wipro.ayurvedamedicine.entity.Medicine;
+import com.wipro.ayurvedamedicine.entity.Order;
+import com.wipro.ayurvedamedicine.entity.OrderItem;
+import com.wipro.ayurvedamedicine.exception.ResourceNotFoundException;
+import com.wipro.ayurvedamedicine.repository.ICustomerRepository;
+import com.wipro.ayurvedamedicine.repository.IMedicineRepository;
+import com.wipro.ayurvedamedicine.repository.IOrderItemRepository;
+import com.wipro.ayurvedamedicine.repository.IOrderRepository;
+import com.wipro.ayurvedamedicine.service.IOrderService;
+
+import jakarta.transaction.Transactional;
+
+@Service
+public class OrderServiceImpl implements IOrderService {
+
+	@Autowired
+	private IOrderRepository orderRepository;
+
+	@Autowired
+	private IOrderItemRepository orderItemRepository;
+	@Autowired
+	private ICustomerRepository customerRepository;
+
+	@Autowired
+	private IMedicineRepository medicineRepository;
+	
+	@Autowired
+	private ModelMapper modelMapper;
+	
+	
+	@Transactional
+	@Override
+	public OrderDTO saveOrder(OrderDTO orderDTO) throws ResourceNotFoundException {
+	    // Fetch customer
+	    Customer customer = customerRepository.findById(orderDTO.getCustomerId())
+	            .orElseThrow(() -> new ResourceNotFoundException("Customer not found"));
+
+	    double totalAmount = 0.0;
+	    Order order = modelMapper.map(orderDTO, Order.class);
+	    order.setCustomer(customer);
+
+	    // Set the order date to the current date
+	    order.setOrderDate(LocalDate.now());
+
+	    // Set the status to "processing"
+	    order.setStatus("processing");
+
+	    List<OrderItem> orderItemEntities = new ArrayList<>();
+	    for (OrderItemDTO itemDTO : orderDTO.getOrderItems()) {
+	        Medicine medicine = medicineRepository.findById(itemDTO.getMedicineId())
+	                .orElseThrow(() -> new ResourceNotFoundException("Medicine not found"));
+
+	        // Check if the order item already exists
+	        Optional<OrderItem> existingItem = orderItemRepository.findByOrderIdAndMedicineId(order.getId(), medicine.getId());
+	        if (existingItem.isPresent()) {
+	            throw new RuntimeException("Duplicate order item detected for medicine ID " + medicine.getId());
+	        }
+
+	        double itemTotal = medicine.getPrice() * itemDTO.getQuantity();
+	        totalAmount += itemTotal;
+
+	        OrderItem orderItem = modelMapper.map(itemDTO, OrderItem.class);
+	        orderItem.setOrder(order);
+	        orderItem.setMedicine(medicine);
+	        orderItem.setItemTotal(itemTotal);
+
+	        orderItemEntities.add(orderItem);
+	    }
+
+	    order.setOrderAmount(totalAmount);
+	    order.setOrderItems(orderItemEntities);
+
+	    Order savedOrder = orderRepository.save(order);
+	    return modelMapper.map(savedOrder, OrderDTO.class);
+	}
+	
+//	@Transactional
+//	@Override
+//	public OrderDTO saveOrder(OrderDTO orderDTO) throws ResourceNotFoundException {
+//	    // Fetch customer
+//	    Customer customer = customerRepository.findById(orderDTO.getCustomerId())
+//	            .orElseThrow(() -> new ResourceNotFoundException("Customer not found"));
+//
+//	    double totalAmount = 0.0;
+//	    Order order = modelMapper.map(orderDTO, Order.class);
+//	    order.setCustomer(customer);
+//
+//	    List<OrderItem> orderItemEntities = new ArrayList<>();
+//	    for (OrderItemDTO itemDTO : orderDTO.getOrderItems()) {
+//	        Medicine medicine = medicineRepository.findById(itemDTO.getMedicineId())
+//	                .orElseThrow(() -> new ResourceNotFoundException("Medicine not found"));
+//
+//	        // Check if the order item already exists
+//	        Optional<OrderItem> existingItem = orderItemRepository.findByOrderIdAndMedicineId(order.getId(), medicine.getId());
+//	        if (existingItem.isPresent()) {
+//	            throw new RuntimeException("Duplicate order item detected for medicine ID " + medicine.getId());
+//	        }
+//
+//	        double itemTotal = medicine.getPrice() * itemDTO.getQuantity();
+//	        totalAmount += itemTotal;
+//
+//	        OrderItem orderItem = modelMapper.map(itemDTO, OrderItem.class);
+//	        orderItem.setOrder(order);
+//	        orderItem.setMedicine(medicine);
+//	        orderItem.setItemTotal(itemTotal);
+//
+//	        orderItemEntities.add(orderItem);
+//	    }
+//
+//	    order.setOrderAmount(totalAmount);
+//	    order.setOrderItems(orderItemEntities);
+//
+//	    Order savedOrder = orderRepository.save(order);
+//	    return modelMapper.map(savedOrder, OrderDTO.class);
+//	}
+
+//	@Transactional
+//	@Override
+//	public OrderDTO saveOrder(OrderDTO orderDTO) throws ResourceNotFoundException {
+//	    // Fetch customer
+//	    Customer customer = customerRepository.findById(orderDTO.getCustomerId())
+//	            .orElseThrow(() -> new ResourceNotFoundException("Customer not found"));
+//
+//	    // Initialize total amount
+//	    double totalAmount = 0.0;
+//
+//	    // Convert OrderDTO to Order entity
+//	    Order order = modelMapper.map(orderDTO, Order.class);
+//	    order.setCustomer(customer); // Set the customer to the order entity
+//
+//	    // Create OrderItem entities and calculate total amount
+//	    List<OrderItem> orderItemEntities = new ArrayList<>();
+//	    for (OrderItemDTO itemDTO : orderDTO.getOrderItems()) {
+//	        // Fetch the medicine details to get the price
+//	        Medicine medicine = medicineRepository.findById(itemDTO.getMedicineId())
+//	                .orElseThrow(() -> new ResourceNotFoundException("Medicine not found"));
+//
+//	        // Calculate item total
+//	        double itemTotal = medicine.getPrice() * itemDTO.getQuantity();
+//
+//	        // Add item total to the total order amount
+//	        totalAmount += itemTotal;
+//
+//	        // Create and set OrderItem entity
+//	        OrderItem orderItem = modelMapper.map(itemDTO, OrderItem.class);
+//	        orderItem.setOrder(order); // Associate OrderItem with the Order
+//	        orderItem.setMedicine(medicine); // Set the medicine to the order item
+//	        orderItem.setItemTotal(itemTotal); // Set the calculated item total
+//
+//	        orderItemEntities.add(orderItem);
+//	    }
+//
+//	    // Set the calculated total amount to the order entity
+//	    order.setOrderAmount(totalAmount);
+//	    order.setOrderItems(orderItemEntities);
+//
+//	    // Save the order entity
+//	    Order savedOrder = orderRepository.save(order);
+//
+//	    return modelMapper.map(savedOrder, OrderDTO.class);
+//	}
+
+//	@Transactional
+//	@Override
+//	public OrderDTO saveOrder(OrderDTO orderDTO) throws ResourceNotFoundException {
+//		// Fetch customer
+//		Customer customer = customerRepository.findById(orderDTO.getCustomerId())
+//				.orElseThrow(() -> new ResourceNotFoundException("Customer not found"));
+//
+//		// Calculate total amount
+//		double totalAmount = calculateTotalAmount(orderDTO.getOrderItems());
+//		orderDTO.setOrderAmount(totalAmount);
+//
+//		// Convert OrderDTO to Order entity
+//		Order order = modelMapper.map(orderDTO, Order.class);
+//		order.setCustomer(customer); // Set the customer to the order entity
+//
+//		// Create OrderItem entities
+//		List<OrderItem> orderItemEntities = createOrderItemEntities(orderDTO.getOrderItems(), order);
+//
+//		order.setOrderItems(orderItemEntities);
+//
+//		Order savedOrder = orderRepository.save(order);
+//
+//		return modelMapper.map(savedOrder, OrderDTO.class);
+//	}
+//
+//	private double calculateTotalAmount(List<OrderItemDTO> orderItems) {
+//		return orderItems.stream().mapToDouble(item -> item.getQuantity() * item.getItemTotal()).sum();
+//	}
+//
+//	private List<OrderItem> createOrderItemEntities(List<OrderItemDTO> orderItems, Order order) {
+//	    List<OrderItem> orderItemEntities = new ArrayList<>();
+//	    for (OrderItemDTO itemDTO : orderItems) {
+//	        try {
+//	            Medicine medicine = medicineRepository.findById(itemDTO.getMedicineId())
+//	                    .orElseThrow(() -> new ResourceNotFoundException("Medicine not found"));
+//
+//	            OrderItem item = modelMapper.map(itemDTO, OrderItem.class);
+//	            item.setOrder(order); // Associate OrderItem with the Order
+//	            item.setMedicine(medicine); // Set the medicine to the order item
+//	            orderItemEntities.add(item);
+//	        } catch (ResourceNotFoundException e) {
+//	            // Handle exception or rethrow
+//	            throw new RuntimeException("Failed to create order item: " + e.getMessage(), e);
+//	        }
+//	    }
+//	    return orderItemEntities;
+//	}
+
+
+	@Override
+	public OrderDTO viewOrder(Long id) throws ResourceNotFoundException {
+		Order order = orderRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Order not found"));
+		return modelMapper.map(order, OrderDTO.class);
+	}
+
+	@Override
+	public List<OrderDTO> getAllOrders() {
+		List<Order> orders = orderRepository.findAll();
+		return orders.stream().map(order -> {
+			// Convert OrderItem to OrderItemDTO
+			List<OrderItemDTO> orderItemDTOs = order.getOrderItems().stream()
+					.map(orderItem -> new OrderItemDTO(orderItem.getId(),
+							orderItem.getMedicine() != null ? orderItem.getMedicine().getId() : null, // Use medicineId
+							orderItem.getQuantity(), orderItem.getItemTotal()))
+					.collect(Collectors.toList());
+
+			// Create and return OrderDTO with only customerId
+			return new OrderDTO(order.getId(), order.getCustomer() != null ? order.getCustomer().getId() : null, // Include
+																													// only
+																													// customerId
+					order.getOrderAmount(), order.getOrderDate(), order.getStatus(), orderItemDTOs);
+		}).collect(Collectors.toList());
+	}
+
+	@Override
+	public OrderDTO updateOrder(OrderDTO orderDTO) throws ResourceNotFoundException {
+		if (!orderRepository.existsById(orderDTO.getId())) {
+			throw new ResourceNotFoundException("Order not found");
+		}
+		Order order = modelMapper.map(orderDTO, Order.class);
+		Order updatedOrder = orderRepository.save(order);
+		return modelMapper.map(updatedOrder, OrderDTO.class);
+	}
+
+	public OrderDTO cancelOrder(Long orderId) throws ResourceNotFoundException {
+		Order order = orderRepository.findById(orderId)
+				.orElseThrow(() -> new ResourceNotFoundException("Order not found with id " + orderId));
+
+		order.setStatus("Cancelled");
+		Order updatedOrder = orderRepository.save(order);
+
+		return modelMapper.map(updatedOrder, OrderDTO.class);
+	}
+
+	@Override
+	public List<OrderDTO> showAllOrders(Long medicineId) {
+		List<Order> orders = orderRepository.findOrdersByMedicineId(medicineId);
+
+		return orders.stream().map(order -> {
+			OrderDTO orderDTO = modelMapper.map(order, OrderDTO.class);
+
+			List<OrderItemDTO> filteredItems = order.getOrderItems().stream()
+					.filter(item -> item.getMedicine().getId().equals(medicineId))
+					.map(item -> modelMapper.map(item, OrderItemDTO.class)).toList();
+
+			orderDTO.setOrderItems(filteredItems);
+			return orderDTO;
+		}).toList();
+	}
+
+	@Override
+	public List<OrderDTO> showAllOrders(Customer customer) {
+		List<Order> orders = orderRepository.findByCustomer(customer);
+		return orders.stream().map(order -> modelMapper.map(order, OrderDTO.class)).toList();
+	}
+
+	@Override
+	public List<OrderDTO> showAllOrders(LocalDate date) {
+		List<Order> orders = orderRepository.findByOrderDate(date);
+		return orders.stream().map(order -> modelMapper.map(order, OrderDTO.class)).toList();
+	}
+
+	@Override
+	public double calculateTotalCost(Long orderId) throws ResourceNotFoundException {
+		Order order = orderRepository.findById(orderId)
+				.orElseThrow(() -> new ResourceNotFoundException("Order not found"));
+
+		// Calculate the total cost from OrderItems
+		return order.getOrderItems().stream().mapToDouble(item -> item.getQuantity() * item.getItemTotal()).sum();
+	}
+
+}

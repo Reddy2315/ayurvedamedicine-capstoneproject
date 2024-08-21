@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <div class="announcement-container">
+    <marquee behavior="scroll" direction="left" scrollamount="3">
+      Flat 20% discount offer closes soon!...
+    </marquee>
+</div>
+
+<app-imageslider/>
+
+  <div class="container">
+    <form #addOrderForm="ngForm" (ngSubmit)="saveOrder(addOrderForm)">
+      <mat-grid-list cols="4" rowHeight="260px" gutterSize="55px">
+        <mat-grid-tile *ngFor="let medicine of medicines; let i = index">
+          <mat-card class="card-item">
+            <mat-card-header>
+              <mat-card-title>{{ medicine.name }}</mat-card-title>
+              
+              <mat-card-subtitle><span class="discount">-20%</span>  {{ medicine.price | currency:'INR':'symbol':'1.2-2' }}
+                <div>M.R.P. :<span class="price">{{ medicine.price *0.2 + medicine.price | currency:'INR':'symbol':'1.2-2' }}</span></div>
+              </mat-card-subtitle>
+              
+            </mat-card-header>
+            <mat-card-content>
+              <div class="view-details-item">
+                <a mat-button [routerLink]="['/medicines/get/by-id', medicine.id]">View Details</a>
+              </div>
+              <div class="quantity-control">
+                <span>Quantity</span>
+                <button mat-icon-button (click)="decreaseQuantity(i)" type="button">
+                  <mat-icon>remove</mat-icon>
+                </button>
+                <input matInput type="number" [(ngModel)]="quantities[i]" placeholder="0" name="quantity{{i}}" min="0" readonly>
+                <button mat-icon-button (click)="increaseQuantity(i)" type="button">
+                  <mat-icon>add</mat-icon>
+                </button>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+      <div class="button-container" *ngIf="isAuthenticated">
+        <button mat-raised-button color="primary" type="submit" >Place Order</button>
+        <button mat-raised-button color="warn" type="button" (click)="resetForm(addOrderForm)">Reset</button>
+      </div>
+    </form>
+  </div>
+  
+</body>
+</html>

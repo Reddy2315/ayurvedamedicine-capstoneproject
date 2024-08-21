@@ -1,0 +1,136 @@
+package com.wipro.ayurvedamedicine.service.impl;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.modelmapper.ModelMapper;
+
+import com.wipro.ayurvedamedicine.dto.CustomerDTO;
+import com.wipro.ayurvedamedicine.entity.Customer;
+import com.wipro.ayurvedamedicine.exception.ResourceAlreadyExistsException;
+import com.wipro.ayurvedamedicine.exception.ResourceNotFoundException;
+import com.wipro.ayurvedamedicine.repository.ICustomerRepository;
+
+//@ExtendWith(MockitoExtension.class)
+//@MockitoSettings(strictness = Strictness.LENIENT) // Apply lenient stubbing if needed
+public class CustomerServiceImplTest {
+
+    @Mock
+    private ICustomerRepository customerRepository;
+
+    @Mock
+    private ModelMapper modelMapper;
+
+    @InjectMocks
+    private CustomerServiceImpl customerService;
+
+    private Customer customer;
+    private CustomerDTO customerDTO;
+
+    @BeforeEach
+    void setUp() {
+    	
+    	MockitoAnnotations.openMocks(this);
+    	modelMapper = new ModelMapper();
+    	// Check if mapping works
+        CustomerDTO mappedDTO = modelMapper.map(customer, CustomerDTO.class);
+        System.out.println("Mapped Customer DTO: " + mappedDTO);
+        customer = new Customer();
+        customer.setId(1L);
+        customer.setUserName("Reddy");
+        customer.setEmail("reddy@gmail.com");
+        customer.setPassword("reddy123");
+        customer.setPhoneNumber("1234567890");
+        customer.setAddress("123, Main Street");
+
+        customerDTO = new CustomerDTO();
+        customerDTO.setId(1L);
+        customerDTO.setUserName("Reddy");
+        customerDTO.setEmail("reddy@gmail.com");
+        customerDTO.setPassword("reddy123");
+        customerDTO.setPhoneNumber("1234567890");
+        customerDTO.setAddress("123, Main Street");
+    }
+
+    @Test
+    void testSaveCustomer() throws ResourceAlreadyExistsException {
+        when(customerRepository.existsByEmailOrPhoneNumber("reddy@gmail.com", "1234567890")).thenReturn(false);
+        when(customerRepository.save(any(Customer.class))).thenReturn(customer);
+        when(modelMapper.map(any(Customer.class), eq(CustomerDTO.class))).thenReturn(customerDTO);
+
+        CustomerDTO savedCustomerDTO = customerService.saveCustomer(customerDTO);
+
+        assertNotNull(savedCustomerDTO);
+        assertEquals(customerDTO.getEmail(), savedCustomerDTO.getEmail());
+        verify(customerRepository, times(1)).save(any(Customer.class));
+        verify(customerRepository, times(1)).existsByEmailOrPhoneNumber("reddy@gmail.com", "1234567890");
+    }
+
+    @Test
+    void testUpdateCustomer() throws ResourceNotFoundException {
+        when(customerRepository.findById(anyLong())).thenReturn(Optional.of(customer));
+        when(customerRepository.save(any(Customer.class))).thenReturn(customer);
+        when(modelMapper.map(any(Customer.class), eq(CustomerDTO.class))).thenReturn(customerDTO);
+
+        CustomerDTO updatedCustomerDTO = customerService.updateCustomer(customerDTO);
+
+        assertNotNull(updatedCustomerDTO);
+        assertEquals(customerDTO.getEmail(), updatedCustomerDTO.getEmail());
+        verify(customerRepository, times(1)).save(any(Customer.class));
+        verify(customerRepository, times(1)).findById(anyLong());
+    }
+
+    @Test
+    void testGetCustomerById() throws ResourceNotFoundException {
+        when(customerRepository.findById(1L)).thenReturn(Optional.of(customer));
+
+        CustomerDTO foundCustomer = customerService.getCustomerById(1L);
+
+        System.out.println("Found Customer DTO: " + foundCustomer); // Debugging
+        assertNotNull(foundCustomer);
+        assertEquals(customer.getEmail(), foundCustomer.getEmail());
+        verify(customerRepository, times(1)).findById(anyLong());
+    }
+
+
+    @Test
+    void testGetAllCustomers() {
+        List<Customer> customers = Stream.of(customer).collect(Collectors.toList());
+        when(customerRepository.findAll()).thenReturn(customers);
+        when(modelMapper.map(any(Customer.class), eq(CustomerDTO.class))).thenReturn(customerDTO);
+
+        List<CustomerDTO> customerDTOs = customerService.getAllCustomers();
+
+        assertNotNull(customerDTOs);
+        assertEquals(1, customerDTOs.size());
+        assertEquals(customerDTO.getEmail(), customerDTOs.get(0).getEmail());
+        verify(customerRepository, times(1)).findAll();
+    }
+
+    @Test
+    void testDeleteCustomer() throws ResourceNotFoundException {
+        when(customerRepository.findById(anyLong())).thenReturn(Optional.of(customer));
+
+        Long deletedCustomerId = customerService.deleteCustomer(1L);
+
+        assertEquals(1L, deletedCustomerId);
+        verify(customerRepository, times(1)).delete(any(Customer.class));
+        verify(customerRepository, times(1)).findById(anyLong());
+    }
+}

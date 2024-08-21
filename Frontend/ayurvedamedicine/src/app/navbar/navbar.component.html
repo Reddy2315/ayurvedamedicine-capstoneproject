@@ -1,0 +1,62 @@
+
+<mat-toolbar color="primary">
+  <span><img src="assets/images/ayurveda_medicine_logo.jpg" alt="Logo" class="logo"></span>
+  <span class="app-title"><strong>AyurvedaMedicine</strong></span>
+  <!-- <span class="spacer"></span> -->
+
+  <button mat-button routerLink="/about" aria-label="About">About</button>
+  <button mat-button routerLink="/contact" aria-label="Contact Us">Contact Us</button>
+
+  <ng-container *ngIf="userType === 'ADMIN'; else customerNav">
+    <!-- <button mat-button routerLink="/dashboard/admin/medicines/all" aria-label="Medicines">Medicines</button> -->
+    <ng-container *ngIf="isAuthenticated; else loggedOut">
+      <button mat-button routerLink="/admin/dashboard" aria-label="Home">Home</button>
+      <mat-form-field class="search-field" appearance="outline">
+        <mat-label>Search by medicine name</mat-label>
+        <input matInput type="text" [(ngModel)]="medicineName" placeholder="Enter medicine name" />
+      </mat-form-field>
+      <button mat-button color="primary" (click)="searchMedicine()">Search</button>
+      <mat-menu #profileMenu="matMenu" class="menu-item">
+        <button mat-menu-item routerLink="/admin/profile">Update Profile</button>
+        <button mat-menu-item (click)="logout()">Logout</button>
+      </mat-menu>
+      <button mat-button matTooltip="My Profile" [matMenuTriggerFor]="profileMenu">
+        Welcome, {{userName}}
+      </button>
+    </ng-container>
+
+  </ng-container>
+
+  <ng-template #customerNav>
+    <button mat-button routerLink="" aria-label="Home">Home</button>
+    <button mat-button routerLink="/medicines" aria-label="Medicines">Medicines</button>
+    <ng-container *ngIf="isAuthenticated; else loggedOut">
+      <button mat-button routerLink="/customer/order-list" aria-label="View Orders">View Orders</button>
+
+      <mat-form-field class="search-field" appearance="outline">
+        <mat-label>Search by medicine name</mat-label>
+        <input matInput type="text" [(ngModel)]="medicineName" placeholder="Enter medicine name" />
+      </mat-form-field>
+      <button mat-button color="primary" (click)="searchMedicine()">Search</button>
+
+      <mat-menu #profileMenu="matMenu" class="menu-item">
+        <button mat-menu-item routerLink="/customer/profile">Update Profile</button>
+        <button mat-menu-item (click)="logout()">Logout</button>
+      </mat-menu>
+      <button mat-button matTooltip="My Profile" [matMenuTriggerFor]="profileMenu">
+        Welcome, {{userName}}
+      </button>
+    </ng-container>
+  </ng-template>
+
+  <ng-template #loggedOut>
+    <mat-form-field class="search-field" appearance="outline">
+      <mat-label>Search by medicine name</mat-label>
+      <input matInput type="text" [(ngModel)]="medicineName" placeholder="Enter medicine name" />
+    </mat-form-field>
+    <button mat-button color="primary" (click)="searchMedicine()">Search</button>
+
+    <button mat-button color="primary" routerLink="/login">Sign In</button>
+    <button mat-button color="accent" routerLink="/register">Register</button>
+  </ng-template>
+</mat-toolbar>

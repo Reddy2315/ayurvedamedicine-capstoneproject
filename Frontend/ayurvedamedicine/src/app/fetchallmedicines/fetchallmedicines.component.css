@@ -1,0 +1,55 @@
+.medicine-container {
+  padding: 16px;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+
+table {
+  width: 100%;
+}
+
+th.mat-header-cell, td.mat-cell {
+  text-align: center;
+}
+
+
+.yellow-button {
+    background-color: #ffffff; /* Yellow color */
+    color: #0a9ffc; /* Black text color */
+  }
+  
+  .yellow-button:hover {
+    background-color: rgb(230, 242, 255); /* Darker yellow on hover */
+  }
+a[mat-button] {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
+  margin: 0 4px;
+  align-items: center;
+}
+
+h2{
+    font-weight: bold;
+    color: blueviolet;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+
+.mat-header-cell {
+  font-weight: bold;
+  text-align: center;
+}
+
+.mat-header-row {
+  background-color: #f1f1f1;
+}
+
+
+.back-btn {
+    margin: 10px 10px ;
+    padding: 5px 20px;
+    font-size: 16px;
+}

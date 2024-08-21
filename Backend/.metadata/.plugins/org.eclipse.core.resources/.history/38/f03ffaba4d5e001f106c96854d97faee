@@ -1,0 +1,77 @@
+package com.wipro.ayurvedamedicine.service.impl;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.wipro.ayurvedamedicine.dto.AdminDTO;
+import com.wipro.ayurvedamedicine.entity.Admin;
+import com.wipro.ayurvedamedicine.exception.ResourceAlreadyExistsException;
+import com.wipro.ayurvedamedicine.exception.ResourceNotFoundException;
+import com.wipro.ayurvedamedicine.repository.IAdminRepository;
+import com.wipro.ayurvedamedicine.service.IAdminService;
+
+@Service
+public class AdminServiceImpl implements IAdminService {
+	@Autowired
+	private IAdminRepository adminRepository;
+
+	@Autowired
+	private ModelMapper modelMapper;
+
+	public AdminDTO addAdmin(AdminDTO adminDTO) throws ResourceAlreadyExistsException {
+		// Check if an Admin with the same userName and password already exists
+		boolean exists = adminRepository.existsByUserNameAndPassword(adminDTO.getUserName(), adminDTO.getPassword());
+		if (exists) {
+			throw new ResourceAlreadyExistsException("Admin with userName and password already exists");
+		}
+
+		// Map DTO to entity and set userType
+		Admin admin = modelMapper.map(adminDTO, Admin.class);
+		admin.setUserType("ADMIN");
+
+		// Save the new Admin entity
+		Admin savedAdmin = adminRepository.save(admin);
+
+		// Return the saved AdminDTO
+		return modelMapper.map(savedAdmin, AdminDTO.class);
+	}
+
+	public AdminDTO updateAdmin(AdminDTO adminDTO) throws ResourceNotFoundException {
+		Admin admin = adminRepository.findById(adminDTO.getId())
+				.orElseThrow(() -> new ResourceNotFoundException("Admin not found with ID: " + adminDTO.getId()));
+
+		// DTO to entity
+		modelMapper.map(adminDTO, admin);
+
+		// userType is set to ADMIN
+		admin.setUserType("ADMIN");
+
+		// Save the updated entity
+		Admin updatedAdmin = adminRepository.save(admin);
+
+		// Return the updated AdminDTO
+		return modelMapper.map(updatedAdmin, AdminDTO.class);
+	}
+
+	@Override
+	public AdminDTO getAdminById(Long id) throws ResourceNotFoundException {
+		Admin admin = adminRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Admin not found"));
+		return modelMapper.map(admin, AdminDTO.class);
+	}
+
+	@Override
+	public Long deleteAdmin(Long id) {
+		adminRepository.deleteById(id);
+		return id;
+	}
+
+	@Override
+	public List<AdminDTO> getAllAdmins() {
+		List<Admin> admins = adminRepository.findAll();
+		return admins.stream().map(admin -> modelMapper.map(admin, AdminDTO.class)).collect(Collectors.toList());
+	}
+}

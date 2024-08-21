@@ -1,0 +1,38 @@
+<div class="login-container">
+  <span><img src="assets/images/ayurveda_medicine_logo.jpg" alt="Logo" class="logo"></span>
+  <h3>Sign In</h3>
+  <form #signindetails="ngForm" (ngSubmit)="adminSignIn(signindetails)" novalidate>
+    <mat-form-field class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" name="email" ngModel required email />
+      <mat-error *ngIf="signindetails.controls['email']?.invalid && (signindetails.controls['email']?.touched || signindetails.submitted)">
+        <ng-container *ngIf="signindetails.controls['email']?.errors?.['required']">
+          Email is required.
+        </ng-container>
+        <ng-container *ngIf="signindetails.controls['email']?.errors?.['email']">
+          Please enter a valid email address.
+        </ng-container>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" name="password" ngModel required minlength="6" />
+      <mat-error *ngIf="signindetails.controls['password']?.invalid && (signindetails.controls['password']?.touched || signindetails.submitted)">
+        <ng-container *ngIf="signindetails.controls['password']?.errors?.['required']">
+          Password is required.
+        </ng-container>
+        <ng-container *ngIf="signindetails.controls['password']?.errors?.['minlength']">
+          Password must be at least 6 characters long.
+        </ng-container>
+      </mat-error>
+    </mat-form-field>
+
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+    <div class="button-container">
+      <button mat-raised-button color="primary" type="submit" [disabled]="signindetails.invalid">Submit</button>
+      <button mat-raised-button color="warn" type="reset">Reset</button>
+    </div>
+  </form>
+</div>

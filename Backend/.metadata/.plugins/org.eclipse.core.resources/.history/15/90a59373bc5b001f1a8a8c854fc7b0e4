@@ -1,0 +1,16 @@
+package com.wipro.ayurvedamedicine.repository;
+
+import com.wipro.ayurvedamedicine.entity.User;
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface IUserRepository extends JpaRepository<User, Long> {
+    Optional<User> findByUserName(String userName);
+    
+//    Optional<User>  findByUsernameOrEmail(String username,String email);
+    
+}

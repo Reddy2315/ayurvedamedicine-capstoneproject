@@ -1,0 +1,39 @@
+.medicine-details-card {
+  max-width: 600px;
+  margin: auto;
+}
+
+mat-card-title {
+  font-size: larger;
+  font-weight: bolder;
+
+}
+
+mat-card-subtitle {
+  font-size: medium;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+mat-card-subtitle span {
+  text-decoration: line-through;
+  margin-left: 10px;
+}
+
+.mat-card-content p {
+  margin: 8px 0;
+  font-size: 1rem;
+}
+
+h2{
+  font-weight: bold;
+  color: blueviolet;
+  text-align: center;
+  margin: 20px;
+}
+
+
+button {
+  margin: 10px 10px ;
+  padding: 5px 20px;
+  font-size: 16px;
+}

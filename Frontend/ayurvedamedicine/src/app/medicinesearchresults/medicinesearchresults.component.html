@@ -1,0 +1,28 @@
+<button mat-raised-button color="primary" (click)="goBack()">Back</button>
+
+<!-- Container for aligning items in the center -->
+<div class="container">
+  <!-- Search Results -->
+  <div *ngIf="medicine; else noMedicine">
+    <h2 class="results-heading">Search Results for "{{ searchQuery }}"</h2>
+    <div class="medicine-grid">
+      <mat-card class="medicine-card">
+        <mat-card-title>{{ medicine.name }}</mat-card-title>
+        <mat-card-content>
+          <p><strong>Company Name : </strong> {{ medicine.companyName }}</p>
+          <p><strong>Price : </strong> {{ medicine.price | currency:'INR':'symbol':'1.2-2' }}
+            <span>{{ medicine.price *0.2 + medicine.price | currency:'INR':'symbol':'1.2-2' }}</span>
+          </p>
+          <p><strong>Manufacturing Date : </strong> {{ medicine.mfd | date: 'dd-MM-YYYY'}}</p>
+          <p><strong>Expiry Date : </strong> {{ medicine.expiryDate | date: 'dd-MM-YYYY' }}</p>
+          <p><strong>Category : </strong> {{ medicine.category.name }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <!-- No Medicine Found Template -->
+  <ng-template #noMedicine>
+    <p class="no-results">No medicines found for "{{ searchQuery }}"</p>
+  </ng-template>
+</div>

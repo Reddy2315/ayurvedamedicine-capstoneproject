@@ -1,0 +1,78 @@
+button {
+    margin: 10px 10px;
+    padding: 5px 20px;
+    font-size: 16px;
+}
+
+/* Center align container */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Center align content in the grid container */
+.medicine-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 10px;
+    padding: 10px;
+    max-width: 1200px; /* Optional: Limit the width of the grid */
+    margin: 0 auto; /* Center the grid container horizontally */
+}
+
+/* Center align text content */
+.results-heading {
+    text-align: center;
+    margin: 10px 20px;
+    font-size: 1.5rem;
+}
+
+/* Medicine Card Styling */
+.medicine-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+}
+
+.medicine-card:hover {
+    transform: translateY(-5px);
+}
+
+.medicine-card mat-card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin: 10px 10px;
+}
+
+.medicine-card span {
+    text-decoration: line-through;
+    margin-left: 10px;
+}
+
+.medicine-card p {
+    margin: 5px 0;
+}
+
+/* No Results */
+.no-results {
+    text-align: center;
+    font-size: 1.25rem;
+    color: #777;
+    margin-top: 20px;
+}
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+    .results-heading {
+        font-size: 1.25rem;
+    }
+
+    .medicine-card {
+        padding: 15px;
+    }
+}

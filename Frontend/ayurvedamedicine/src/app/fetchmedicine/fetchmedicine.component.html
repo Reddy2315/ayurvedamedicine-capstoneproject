@@ -1,0 +1,15 @@
+<button mat-raised-button color="primary" (click)="goBack()">Back</button>
+<h2> <strong>Medicine Details</strong></h2>
+<mat-card *ngIf="selectedMedicine !== undefined" class="medicine-details-card">
+  <mat-card-header>
+    <mat-card-title>{{ selectedMedicine.name }}</mat-card-title>
+    <mat-card-subtitle>{{ selectedMedicine.price | currency: 'INR': 'symbol': '1.2-2' }} <span>{{ selectedMedicine.price *0.2 + selectedMedicine.price | currency:'INR':'symbol':'1.2-2' }}</span></mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p><strong>Company Name : </strong> {{ selectedMedicine.companyName }}</p>
+    <p><strong>Manufacturing Date : </strong> {{ selectedMedicine.mfd | date: 'dd-MM-YYYY' }}</p>
+    <p><strong>Expiry Date : </strong> {{ selectedMedicine.expiryDate | date: 'dd-MM-YYYY' }}</p>
+    <p><strong>Category : </strong> {{ selectedMedicine.category.name }}</p>
+  </mat-card-content>
+</mat-card>
+

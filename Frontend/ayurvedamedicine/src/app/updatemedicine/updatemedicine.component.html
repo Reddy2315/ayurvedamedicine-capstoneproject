@@ -1,0 +1,74 @@
+<button mat-raised-button color="primary" (click)="goBack()">Back</button>
+
+<div class="form-container">
+    <h3>Update Medicine</h3>
+    <form class="medicine-form" #editMedicineForm="ngForm" (ngSubmit)="updateMedicine(editMedicineForm)" novalidate>
+    
+        <mat-form-field class="medicine-form-field">
+            <mat-label>Medicine Name</mat-label>
+            <input matInput placeholder="Enter Medicine Name" name="name" [(ngModel)]="medicine.name" required>
+            <mat-error *ngIf="editMedicineForm.submitted && editMedicineForm.controls['name'].invalid">
+                <ng-container *ngIf="editMedicineForm.controls['name'].errors?.['required']">
+                    Medicine Name is required.
+                </ng-container>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="medicine-form-field">
+            <mat-label>Product Price</mat-label>
+            <input type="number" matInput placeholder="Enter Product Price" name="price" [(ngModel)]="medicine.price" required>
+            <mat-error *ngIf="editMedicineForm.submitted && editMedicineForm.controls['price'].invalid">
+                <ng-container *ngIf="editMedicineForm.controls['price'].errors?.['required']">
+                    Product Price is required.
+                </ng-container>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="medicine-form-field">
+            <mat-label>MFD</mat-label>
+            <input type="date" matInput name="mfd" [(ngModel)]="medicine.mfd" required>
+            <mat-error *ngIf="editMedicineForm.submitted && editMedicineForm.controls['mfd'].invalid">
+                <ng-container *ngIf="editMedicineForm.controls['mfd'].errors?.['required']">
+                    MFD is required.
+                </ng-container>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="medicine-form-field">
+            <mat-label>Expiry Date</mat-label>
+            <input type="date" matInput name="expiryDate" [(ngModel)]="medicine.expiryDate" required>
+            <mat-error *ngIf="editMedicineForm.submitted && editMedicineForm.controls['expiryDate'].invalid">
+                <ng-container *ngIf="editMedicineForm.controls['expiryDate'].errors?.['required']">
+                    Expiry Date is required.
+                </ng-container>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="medicine-form-field">
+            <mat-label>Company Name</mat-label>
+            <input type="text" matInput placeholder="Enter Company Name" name="companyName" [(ngModel)]="medicine.companyName" required>
+            <mat-error *ngIf="editMedicineForm.submitted && editMedicineForm.controls['companyName'].invalid">
+                <ng-container *ngIf="editMedicineForm.controls['companyName'].errors?.['required']">
+                    Company Name is required.
+                </ng-container>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="medicine-form-field">
+            <mat-label>Category</mat-label>
+            <input type="text" matInput placeholder="Enter Category" name="categoryName" [(ngModel)]="medicine.category.name" required>
+            <mat-error *ngIf="editMedicineForm.submitted && editMedicineForm.controls['categoryName'].invalid">
+                <ng-container *ngIf="editMedicineForm.controls['categoryName'].errors?.['required']">
+                    Category is required.
+                </ng-container>
+            </mat-error>
+        </mat-form-field>
+
+        <div class="button-container">
+            <button mat-raised-button color="primary" type="submit" [disabled]="editMedicineForm.invalid">Update Medicine</button>
+            <button mat-raised-button color="warn" type="reset">Reset</button>
+        </div>
+
+    </form>
+</div>
+

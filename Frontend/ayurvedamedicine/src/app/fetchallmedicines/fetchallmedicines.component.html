@@ -1,0 +1,61 @@
+<button class="back-btn" mat-raised-button color="primary" (click)="goBack()">Back</button>
+
+<div class="medicine-container">
+
+    <h2><strong>Medicine List</strong></h2>
+
+    <div class="table-container">
+        <table mat-table [dataSource]="medicines" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> Medicine ID </th>
+                <td mat-cell *matCellDef="let medicine"> {{medicine.id}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="medicineName">
+                <th mat-header-cell *matHeaderCellDef> Medicine Name </th>
+                <td mat-cell *matCellDef="let medicine"> {{medicine.name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="medicinePrice">
+                <th mat-header-cell *matHeaderCellDef>  Price </th>
+                <td mat-cell *matCellDef="let medicine"> {{medicine.price | currency:'INR': 'symbol': '1.2-2' }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="mfd">
+                <th mat-header-cell *matHeaderCellDef>  Manufacture date </th>
+                <td mat-cell *matCellDef="let medicine"> {{medicine.mfd | date: "dd-MM-YYYY" }} </td>
+            </ng-container>
+            <ng-container matColumnDef="expiryDate">
+                <th mat-header-cell *matHeaderCellDef> Expiry Date </th>
+                <td mat-cell *matCellDef="let medicine"> {{medicine.expiryDate | date: "dd-MM-YYYY" }} </td>
+            </ng-container>
+            <ng-container matColumnDef="comapnyName">
+                <th mat-header-cell *matHeaderCellDef> Company Name </th>
+                <td mat-cell *matCellDef="let medicine"> {{medicine.companyName  }} </td>
+            </ng-container>
+            <ng-container matColumnDef="categoryName">
+                <th mat-header-cell *matHeaderCellDef> Category </th>
+                <td mat-cell *matCellDef="let medicine"> {{medicine.category.name }} </td>
+            </ng-container>
+        
+            <ng-container matColumnDef="edit">
+                <th mat-header-cell *matHeaderCellDef> Action </th>
+                <td mat-cell *matCellDef="let medicine">
+                    <a [routerLink]="['/medicine/update', medicine.id]" mat-raised-button class="yellow-button">Edit</a>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="delete">
+                <th mat-header-cell *matHeaderCellDef>Action</th>
+                <td mat-cell *matCellDef="let medicine">
+                    <a [routerLink]="['/medicine/delete', medicine.id]" mat-raised-button color="warn">Delete</a>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+    </div>
+</div>

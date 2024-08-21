@@ -1,0 +1,29 @@
+package com.wipro.ayurvedamedicine.entity;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
+
+@Entity
+@Table(name = "admins")
+@Getter
+@Setter
+public class Admin extends User {
+
+	
+	@Column(name = "email", nullable = false, unique = true)
+    @Email(message = "Email should be valid")
+    @NotEmpty(message = "Email is required")
+    private String email;
+	
+    @Column(name = "password", nullable = false)
+    @Size(min = 6, message = "Password should be at least 6 characters long")
+    @NotEmpty(message = "Password is required")
+    private String password;
+
+}

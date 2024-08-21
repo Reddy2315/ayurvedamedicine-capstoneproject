@@ -1,0 +1,38 @@
+<button mat-raised-button color="primary" (click)="goBack()">Back</button>
+<mat-card class="profile-card">
+  <mat-card-header>
+    <mat-card-title><Strong>Update Profile</Strong></mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form #profileForm="ngForm" (ngSubmit)="updateAdminProfile(profileForm)">
+      <mat-form-field appearance="outline">
+        <mat-label>Full Name</mat-label>
+        <input matInput name="fullName" [(ngModel)]="admin.userName" required />
+        <mat-error *ngIf="profileForm.submitted && !admin.userName">
+          Full Name is required.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput name="email" [(ngModel)]="admin.email" type="email" required />
+        <mat-error *ngIf="profileForm.submitted && !admin.email">
+          Valid Email is required.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput name="password" [(ngModel)]="admin.password" type="password" required />
+        <mat-error *ngIf="profileForm.submitted && !admin.password">
+          Password is required.
+        </mat-error>
+      </mat-form-field>
+
+      <div class="button-container">
+        <button mat-raised-button color="primary" type="submit">Update Profile</button>
+        <button mat-raised-button color="warn" type="button" (click)="resetForm(profileForm)">Reset</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

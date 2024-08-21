@@ -1,0 +1,223 @@
+/* General container styles */
+.container {
+    margin: 0 auto;
+    padding: 10px;
+    max-width: 1320px;
+    width: 100%;
+}
+
+.full-width {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.discount{
+    color:#ff0000;
+}
+/* Grid and card styles */
+mat-grid-list {
+    width: 100%; 
+    margin-bottom: 40px;
+    /* Full width of the container */
+}
+
+mat-grid-tile {
+    padding: 10px;
+    /* Adjust padding for spacing */
+}
+
+.price{
+    text-decoration: line-through;
+    margin-left: 10px;
+}
+
+
+.card-item {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    /* Increased margin for spacing */
+    border-radius: 16px;
+    /* Smooth and rounded corners for the card */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Light shadow for card depth */
+    background-color: #f9f9f9;
+    /* Light background color for the card */
+    overflow: hidden;
+    /* Ensures content stays within rounded corners */
+    transition: transform 0.2s ease-in-out;
+    /* Smooth hover effect */
+}
+
+.card-item:hover {
+    transform: translateY(-5px);
+    /* Slightly lift the card on hover */
+}
+
+mat-card-header {
+    margin-bottom: 10px;
+    border-top-left-radius: 16px;
+    /* Matching rounded corners for the card header */
+    border-top-right-radius: 16px;
+    /* Matching rounded corners for the card header */
+}
+
+mat-card-subtitle {
+    font-size: 1rem;
+    /* Adjusted font size */
+    color: rgba(0, 0, 0, 0.54);
+    margin-top: 10px;
+}
+
+/* Quantity control styles */
+.quantity-control {
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+    margin: 8px 0;
+    font-weight: 400;
+}
+
+.quantity-control button {
+    margin: 0 8px;
+}
+
+.quantity-control input {
+    width: 50px;
+    /* Increased width for better visibility */
+    text-align: center;
+    border: none;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+}
+
+/* Button container styles */
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    flex-wrap: wrap;
+    /* Allows wrapping of buttons on small screens */
+}
+
+.button-container button {
+    margin: 10px;
+    /* Adjusted margin for buttons */
+}
+
+/* Link styles */
+.view-details-item a {
+    margin-top: 8px;
+    text-decoration: none;
+    font-size: small;
+    color: #3f51b5;
+    font-weight: 500;
+    /* Slightly bolder for better visibility */
+}
+
+.view-details-item a:hover {
+    color: #0025f8;
+}
+
+
+.announcement-container {
+    width: 100%;
+    padding: 10px 0 0 0; /* Padding for spacing */
+    color: #ff0000; /* Text color */
+    overflow: hidden; /* Hide overflow */
+    text-align: center; /* Center the text */
+}
+
+marquee {
+    font-size: 1.5rem; /* Font size */
+    font-weight: bold; /* Font weight */
+    font-size: larger;
+    font-style: italic;
+}
+  
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+    .container {
+        padding: 15px;
+        /* Adjusted padding for smaller screens */
+    }
+
+    mat-grid-list {
+        grid-template-columns: repeat(3, 1fr);
+        /* Three columns on large screens */
+    }
+}
+
+@media (max-width: 992px) {
+    mat-grid-list {
+        grid-template-columns: repeat(2, 1fr);
+        /* Two columns on medium screens */
+    }
+
+    .card-item {
+        margin-bottom: 15px;
+        /* Margin adjustment for smaller screens */
+    }
+
+    .quantity-control {
+        flex-direction: column;
+        /* Stack buttons and input vertically */
+    }
+
+    .quantity-control button {
+        margin: 5px 0;
+        /* Adjusted margin for vertical stacking */
+    }
+
+    .quantity-control input {
+        width: 60px;
+        /* Adjust width for smaller screens */
+    }
+}
+
+@media (max-width: 768px) {
+    mat-grid-list {
+        grid-template-columns: 1fr;
+        /* Single column on small screens */
+    }
+
+    .button-container {
+        flex-direction: column;
+        /* Stack buttons vertically */
+        align-items: center;
+    }
+
+    .button-container button {
+        margin: 15px 0;
+        /* Adjusted margin for vertical stacking */
+        width: 80%;
+        /* Full-width buttons on small screens */
+    }
+}
+
+@media (max-width: 480px) {
+    mat-card-title {
+        font-size: 1.1rem;
+        /* Adjusted title font size for very small screens */
+    }
+
+    mat-card-subtitle {
+        font-size: 0.9rem;
+        /* Adjusted subtitle font size for very small screens */
+    }
+
+    .quantity-control input {
+        width: 50px;
+        /* Adjust width for very small screens */
+    }
+
+    .button-container button {
+        width: 100%;
+        /* Full-width buttons on very small screens */
+    }
+}

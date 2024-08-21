@@ -1,0 +1,12 @@
+<div class="carousel-container">
+    <mat-card class="carousel-card">
+      <img mat-card-image [src]="slides[currentIndex].imageUrl" alt="Slide Image">
+    </mat-card>
+    <button mat-icon-button class="prev-button" (click)="prevSlide()">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+    <button mat-icon-button class="next-button" (click)="nextSlide()">
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+  </div>
+  

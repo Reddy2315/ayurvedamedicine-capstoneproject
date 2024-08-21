@@ -1,0 +1,129 @@
+/* General Container Styling */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px;
+    font-family: Arial, sans-serif;
+    text-align: justify; /* Align text like a word document */
+}
+
+.about-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    text-align: justify; /* Align text like a word document */
+}
+
+h2, h3 {
+    color: #00fe08; /* A green color often associated with health and nature */
+    text-align: center; /* Center headings */
+    margin-bottom: 20px; /* Add space below headings */
+}
+
+p {
+    line-height: 1.8;
+    color: #f4f1f1;
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+ul {
+    list-style-type: square;
+    margin-left: 40px; /* Increase indentation for better readability */
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+ul li {
+    margin-bottom: 10px; /* Add space between list items */
+    color: #f4f1f1;
+}
+
+button {
+    margin: 10px 10px ;
+    padding: 5px 20px;
+    font-size: 16px;
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+    .container,
+    .about-container {
+        padding: 15px;
+    }
+
+    .container {
+        max-width: 900px;
+    }
+
+    .about-container {
+        max-width: 700px;
+    }
+
+    h2, h3 {
+        font-size: 1.8em;
+    }
+
+    p {
+        font-size: 1em;
+    }
+
+    ul {
+        margin-left: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container,
+    .about-container {
+        padding: 10px;
+    }
+
+    .container {
+        max-width: 100%;
+    }
+
+    .about-container {
+        max-width: 100%;
+    }
+
+    h2, h3 {
+        font-size: 1.6em;
+    }
+
+    p {
+        font-size: 0.95em;
+    }
+
+    ul {
+        margin-left: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container,
+    .about-container {
+        padding: 8px;
+    }
+
+    .container {
+        max-width: 100%;
+    }
+
+    .about-container {
+        max-width: 100%;
+    }
+
+    h2, h3 {
+        font-size: 1.4em;
+    }
+
+    p {
+        font-size: 0.9em;
+    }
+
+    ul {
+        margin-left: 10px;
+    }
+}

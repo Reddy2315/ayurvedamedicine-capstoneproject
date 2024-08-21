@@ -1,0 +1,79 @@
+/* Container for the login form */
+/* Ensure the body and html take up the full viewport height */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+/* Container for the login form */
+.login-container {
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto; /* Center horizontally */
+  padding: 20px;
+  background-color: #ffffff; /* White background for the form container */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  
+  /* Flexbox centering for vertical alignment */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center vertically */
+  align-items: center; /* Center horizontally */
+  
+  /* Ensure it is properly centered within the viewport */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+
+.logo {
+  height: 100px;
+  max-width: fit-content;
+  margin-right: 20px; /* Space between the logo and form */
+  margin-left: 20px;
+  border-radius: 50px;
+}
+
+
+h3{
+  color: #1976d2;
+  font-weight: bolder;
+  margin-bottom: 50px;
+}
+
+/* Full-width form field styling */
+.full-width {
+  width: 100%;
+}
+
+/* Flex container for buttons */
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+/* Styling for error messages */
+.error-message {
+  color: red;
+  margin-top: 10px;
+  font-size: 0.875rem;
+}
+
+/* Styling for the login button */
+button[mat-raised-button][color="primary"] {
+  background-color: #1976d2;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+/* Styling for the reset button */
+button[mat-raised-button][color="warn"] {
+  background-color: #d32f2f;
+  color: #ffffff;
+  font-weight: bold;
+}

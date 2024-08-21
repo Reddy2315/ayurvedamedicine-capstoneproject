@@ -1,0 +1,62 @@
+<button mat-raised-button color="primary" (click)="goBack()">Back</button>
+
+<div class="form-container">
+    <h3>Update Customer</h3>
+    <form class="customer-form" #editCustomerForm="ngForm" (ngSubmit)="updateCustomer(editCustomerForm)" novalidate>
+    
+        <mat-form-field class="customer-form-field">
+            <mat-label>User Name</mat-label>
+            <input matInput placeholder="Enter Customer Name" name="userName" [(ngModel)]="customer.userName" required>
+            <mat-error *ngIf="editCustomerForm.submitted && editCustomerForm.controls['userName'].invalid">
+                <ng-container *ngIf="editCustomerForm.controls['userName'].errors?.['required']">
+                    Customer Name is required.
+                </ng-container>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="customer-form-field">
+            <mat-label>Email</mat-label>
+            <input type="email" matInput placeholder="Enter Customer Email" name="email" [(ngModel)]="customer.email" required>
+            <mat-error *ngIf="editCustomerForm.submitted && editCustomerForm.controls['email'].invalid">
+                <ng-container *ngIf="editCustomerForm.controls['email'].errors?.['required']">
+                    Customer Email is required.
+                </ng-container>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="customer-form-field">
+            <mat-label>Password</mat-label>
+            <input type="password" matInput name="password" [(ngModel)]="customer.password" required>
+            <mat-error *ngIf="editCustomerForm.submitted && editCustomerForm.controls['password'].invalid">
+                <ng-container *ngIf="editCustomerForm.controls['password'].errors?.['required']">
+                   Password is required.
+                </ng-container>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="customer-form-field">
+            <mat-label>Phone  Number</mat-label>
+            <input type="text" matInput name="phoneNumber" [(ngModel)]="customer.phoneNumber" required>
+            <mat-error *ngIf="editCustomerForm.submitted && editCustomerForm.controls['phoneNumber'].invalid">
+                <ng-container *ngIf="editCustomerForm.controls['phoneNumber'].errors?.['required']">
+                    Phone NUmber is required.
+                </ng-container>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="customer-form-field">
+            <mat-label>Address</mat-label>
+            <input type="text" matInput placeholder="Enter your address" name="address" [(ngModel)]="customer.address" required>
+            <mat-error *ngIf="editCustomerForm.submitted && editCustomerForm.controls['address'].invalid">
+                <ng-container *ngIf="editCustomerForm.controls['address'].errors?.['required']">
+                    Address is required.
+                </ng-container>
+            </mat-error>
+        </mat-form-field>
+
+        <div class="button-container">
+            <button mat-raised-button color="primary" type="submit" [disabled]="editCustomerForm.invalid">Update Customer</button>
+            <button mat-raised-button color="warn" type="reset">Reset</button>
+        </div>
+    </form>
+</div>

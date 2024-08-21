@@ -1,0 +1,18 @@
+package com.wipro.ayurvedamedicine.service;
+
+import com.wipro.ayurvedamedicine.dto.MedicineDTO;
+import com.wipro.ayurvedamedicine.exception.ResourceNotFoundException;
+
+import java.util.List;
+
+
+public interface IMedicineService {
+	MedicineDTO saveMedicine(MedicineDTO medicineDTO) throws ResourceNotFoundException;
+    MedicineDTO updateMedicine(MedicineDTO medicineDTO) throws ResourceNotFoundException;
+    MedicineDTO getMedicineById(Long id) throws ResourceNotFoundException;
+    List<MedicineDTO> getAllMedicines();
+    Long deleteMedicine(Long id) throws ResourceNotFoundException;
+    
+    List<MedicineDTO> getMedicinesByCategoryId(Long categoryId);
+	List<MedicineDTO> getMedicineByName(String name);
+}

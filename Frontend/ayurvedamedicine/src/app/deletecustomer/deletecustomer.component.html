@@ -1,0 +1,17 @@
+<button mat-raised-button color="primary"  class="back-btn" (click)="goBack()">Back</button>
+
+<div *ngIf="customer" class="customer-details-container">
+  <!-- <h3>Are you sure, you want to delete {{ medicine.name }}</h3> -->
+  
+  <p><strong>User Name : </strong> {{ customer.userName }}</p>
+  <p><strong>Email : </strong> {{ customer.email }}</p>
+  <p><strong>Password : </strong> {{ customer.password }}</p>
+  <p><strong>Phone Number:</strong> {{ customer.phoneNumber }}</p>
+  <p><strong>Address : </strong> {{ customer.address  }}</p>
+
+
+  <div class="button-container">
+    <button mat-raised-button color="warn" (click)="deleteCustomer()">Delete Customer</button>
+    <button mat-raised-button color="primary" (click)="goBack()">Cancel</button>
+  </div>
+</div>
