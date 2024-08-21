@@ -32,7 +32,7 @@
               <div class="view-details-item">
                 <a mat-button [routerLink]="['/medicines/get/by-id', medicine.id]">View Details</a>
               </div>
-              <div class="quantity-control">
+              <div class="quantity-control" *ngIf="isAuthenticated">
                 <span>Quantity</span>
                 <button mat-icon-button (click)="decreaseQuantity(i)" type="button">
                   <mat-icon>remove</mat-icon>
