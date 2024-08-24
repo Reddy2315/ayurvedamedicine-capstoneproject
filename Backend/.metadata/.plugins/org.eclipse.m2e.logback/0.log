@@ -5219,3 +5219,14 @@ org.eclipse.core.runtime.CoreException: Launch configuration AyurvedamedicineApp
 2024-08-20 10:59:30,956 [Worker-12: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory D:\Capstone Project FSD-Angular\Backend\ayurvedamedicine\src\test\resources
 2024-08-21 10:02:57,239 [Worker-2: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
 2024-08-21 20:16:12,420 [Worker-2: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2024-08-24 16:24:35,481 [Worker-1: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2024-08-24 16:25:02,928 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2024-08-24 16:25:02,978 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2024-08-24 16:25:02,992 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory D:\Capstone Project FSD-Angular\Backend\ayurvedamedicine\src\test\resources
+2024-08-24 17:13:58,017 [Worker-16: Building] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.wipro:ayurvedamedicine:0.0.1-SNAPSHOT @ D:\Capstone Project FSD-Angular\Backend\ayurvedamedicine\pom.xml.
+2024-08-24 17:13:58,778 [Worker-16: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2024-08-24 17:13:58,808 [Worker-16: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2024-08-24 17:13:58,822 [Worker-16: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory D:\Capstone Project FSD-Angular\Backend\ayurvedamedicine\src\test\resources
+2024-08-24 17:15:52,480 [Worker-3: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2024-08-24 17:15:52,487 [Worker-3: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2024-08-24 17:15:52,493 [Worker-3: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory D:\Capstone Project FSD-Angular\Backend\ayurvedamedicine\src\test\resources
