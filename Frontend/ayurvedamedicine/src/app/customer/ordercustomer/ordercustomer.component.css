@@ -31,6 +31,10 @@ mat-grid-tile {
     margin-left: 10px;
 }
 
+.medicine-price{
+    color:black;
+    margin-left: 10px;
+}
 
 .card-item {
     height: 100%;

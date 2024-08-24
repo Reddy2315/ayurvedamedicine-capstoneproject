@@ -14,8 +14,16 @@ mat-card-subtitle {
   color: rgba(0, 0, 0, 0.54);
 }
 
-mat-card-subtitle span {
+.discount{
+  color:#ff0000;
+}
+.price{
   text-decoration: line-through;
+  margin-left: 10px;
+}
+
+.medicine-price{
+  color:black;
   margin-left: 10px;
 }
 

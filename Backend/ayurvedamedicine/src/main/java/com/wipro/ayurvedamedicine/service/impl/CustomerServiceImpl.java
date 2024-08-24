@@ -35,9 +35,10 @@ public class CustomerServiceImpl implements ICustomerService {
 		Customer customer = new Customer();
 		customer.setUserType("CUSTOMER");
 
-		boolean exists = customerRepository.existsByEmailOrPhoneNumber(customerDTO.getEmail(),
+		boolean existsEmailOrPhNo = customerRepository.existsByEmailOrPhoneNumber(customerDTO.getEmail(),
 				customerDTO.getPhoneNumber());
-		if (exists) {
+		boolean existsEmail=customerRepository.existsByEmail(customerDTO.getEmail());
+		if (existsEmailOrPhNo || existsEmail) {
 			throw new ResourceAlreadyExistsException("Customer with the given email or phone number already exists.");
 		}
 

@@ -23,7 +23,7 @@
             <mat-card-header>
               <mat-card-title>{{ medicine.name }}</mat-card-title>
               
-              <mat-card-subtitle><span class="discount">-20%</span>  {{ medicine.price | currency:'INR':'symbol':'1.2-2' }}
+              <mat-card-subtitle><span class="discount">-20%</span> <span class="medicine-price">{{ medicine.price | currency:'INR':'symbol':'1.2-2' }}</span> 
                 <div>M.R.P. :<span class="price">{{ medicine.price *0.2 + medicine.price | currency:'INR':'symbol':'1.2-2' }}</span></div>
               </mat-card-subtitle>
               

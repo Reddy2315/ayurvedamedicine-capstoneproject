@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators,  } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -28,6 +28,9 @@ export class RegisterComponent {
   registerForm: FormGroup;
   hidePassword = true;
   hideConfirmPassword = true;
+
+  
+
 
   constructor(
     private fb: FormBuilder,
@@ -81,6 +84,7 @@ export class RegisterComponent {
     this.registerForm.get('fullName')?.setValue(`${firstName} ${lastName}`, { emitEvent: false });
   }
 
+ 
   checkPasswordMatch() {
     const password = this.registerForm.get('password')?.value;
     const confirmPassword = this.registerForm.get('confirmPassword')?.value;
@@ -122,8 +126,6 @@ export class RegisterComponent {
     }
   }
 }
-
-
 
 
 

@@ -33,9 +33,9 @@ mat-toolbar {
   color: blueviolet;
 }
 
-button {
+/* button {
   margin: 5px;
-}
+} */
 
 .active-link {
   border-bottom: 2px solid blue;
@@ -44,7 +44,7 @@ button {
 
 .search-field {
   width: 100%;
-  max-width: 300px; /* Adjust max-width as needed */
+  max-width: 400px; /* Adjust max-width as needed */
   margin-top:5px
 }
 

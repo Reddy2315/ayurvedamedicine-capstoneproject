@@ -11,6 +11,7 @@ import com.wipro.ayurvedamedicine.entity.Customer;
 public interface ICustomerRepository extends JpaRepository<Customer, Long>{
 
 	boolean existsByEmailOrPhoneNumber(String email, String phoneNumber);
+	boolean existsByEmail(String email);
 	Optional<Customer> findByEmailAndPhoneNumber(String email, String phoneNumber);
 	Optional<Customer> findByEmail(String email);
 }

@@ -3,7 +3,9 @@
 <mat-card *ngIf="selectedMedicine !== undefined" class="medicine-details-card">
   <mat-card-header>
     <mat-card-title>{{ selectedMedicine.name }}</mat-card-title>
-    <mat-card-subtitle>{{ selectedMedicine.price | currency: 'INR': 'symbol': '1.2-2' }} <span>{{ selectedMedicine.price *0.2 + selectedMedicine.price | currency:'INR':'symbol':'1.2-2' }}</span></mat-card-subtitle>
+    <mat-card-subtitle><span class="discount">-20%</span> <span class="medicine-price">{{ selectedMedicine.price | currency:'INR':'symbol':'1.2-2' }}</span> 
+      <div>M.R.P. :<span class="price">{{ selectedMedicine.price *0.2 + selectedMedicine.price | currency:'INR':'symbol':'1.2-2' }}</span></div>
+    </mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <p><strong>Company Name : </strong> {{ selectedMedicine.companyName }}</p>
