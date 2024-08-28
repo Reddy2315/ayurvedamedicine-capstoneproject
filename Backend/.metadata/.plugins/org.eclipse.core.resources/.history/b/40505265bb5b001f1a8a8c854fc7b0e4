@@ -1,5 +1,0 @@
-package com.wipro.ayurvedamedicine.service;
-
-public interface IAuthService {
-
-}

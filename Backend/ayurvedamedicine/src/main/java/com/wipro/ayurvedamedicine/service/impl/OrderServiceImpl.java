@@ -97,7 +97,7 @@ public class OrderServiceImpl implements IOrderService {
 							orderItem.getMedicine() != null ? orderItem.getMedicine().getId() : null, // Use medicineId
 							orderItem.getQuantity(), orderItem.getItemTotal()))
 					.collect(Collectors.toList());
-
+			
 			return new OrderDTO(order.getId(), order.getCustomer() != null ? order.getCustomer().getId() : null, 
 																																																				// customerId
 					order.getOrderAmount(), order.getOrderDate(), order.getStatus(), orderItemDTOs);
@@ -151,16 +151,23 @@ public class OrderServiceImpl implements IOrderService {
 		return orders.stream().map(order -> {
 			OrderDTO orderDTO = modelMapper.map(order, OrderDTO.class);
 			List<OrderItemDTO> orderItemDTOs = order.getOrderItems().stream()
-					.map(orderItem -> modelMapper.map(orderItem, OrderItemDTO.class)).collect(Collectors.toList());
+					.map(orderItem -> modelMapper.map(orderItem, OrderItemDTO.class)).toList();
 			orderDTO.setOrderItems(orderItemDTOs);
 			return orderDTO;
-		}).collect(Collectors.toList());
+		}).toList();
 	}
 
 	@Override
 	public List<OrderDTO> showAllOrders(LocalDate date) {
 		List<Order> orders = orderRepository.findByOrderDate(date);
-		return orders.stream().map(order -> modelMapper.map(order, OrderDTO.class)).toList();
+		
+		return orders.stream().map(order -> {
+			OrderDTO orderDTO = modelMapper.map(order, OrderDTO.class);
+			List<OrderItemDTO> orderItemDTOs = order.getOrderItems().stream()
+					.map(orderItem -> modelMapper.map(orderItem, OrderItemDTO.class)).toList();
+			orderDTO.setOrderItems(orderItemDTOs);
+			return orderDTO;
+		}).toList();
 	}
 
 	@Override

@@ -2,8 +2,97 @@
 
 <div class="order-list-container">
     <h2>Orders History</h2>
+<div class="filter-container">
+    <form (ngSubmit)="filterOrdersByDate()">
+      <mat-form-field class="medicine-form-field">
+        <mat-label>Search By Order Date</mat-label>
+        <input type="date" matInput [(ngModel)]="filterCriteria.orderDate" name="orderDate" >
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">Search</button>
+    </form>
+    
+   <!-- Status Dropdown -->
+   <mat-form-field appearance="fill">
+    <mat-label>Order Status</mat-label>
+    <mat-select [(ngModel)]="filterCriteria.orderStatus" (ngModelChange)="filterOrdersByStatus()">
+      <mat-option value="">All</mat-option>
+      <mat-option value="Success">Success</mat-option>
+      <mat-option value="Cancelled">Cancelled</mat-option>
+    </mat-select>
+  </mat-form-field>
 
-    <!-- Check if orders exist -->
+<!-- Reset Button -->
+<button mat-raised-button color="primary" (click)="resetFilters()">Reset Filter</button>
+</div>
+    <!-- Check if filtered orders exist -->
+    <div *ngIf="filteredOrders && filteredOrders.length > 0; else noOrders">
+      <mat-card *ngFor="let order of filteredOrders" class="order-card">
+        <mat-card-header>
+          <mat-card-subtitle>Status: {{ order.status }}</mat-card-subtitle>
+          <mat-card-subtitle>Order Date: {{ order.orderDate | date : 'dd-MM-YYYY' }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <table class="order-details-table">
+            <thead>
+              <tr>
+                <th>Medicine Name</th>
+                <th>Company Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Manufacturing Date</th>
+                <th>Expiry Date</th>
+                <th>Category</th>
+                <th>Item Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of order.orderItems">
+                <td>{{ medicineMap[item.medicineId].name }}</td>
+                <td>{{ medicineMap[item.medicineId].companyName }}</td>
+                <td>{{ medicineMap[item.medicineId].price | currency:'INR': 'symbol': '1.2-2' }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ medicineMap[item.medicineId].mfd | date }}</td>
+                <td>{{ medicineMap[item.medicineId].expiryDate | date }}</td>
+                <td>{{ medicineMap[item.medicineId].category.name }}</td>
+                <td>{{ item.itemTotal }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="order-summary">
+            <p><strong>Total Amount:</strong> {{ order.orderAmount | currency:'INR': 'symbol': '1.2-2'}}</p>
+          </div>
+          
+          <button mat-raised-button color="warn" 
+                  (click)="cancelOrder(order.id)" 
+                  [disabled]="isCancelButtonDisabled(order.status)">
+            Cancel Order
+          </button>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Display this if no orders are found -->
+    <ng-template #noOrders>
+      <p>No orders are present.</p>
+    </ng-template>
+</div>
+
+
+
+<!-- <button mat-raised-button color="primary" (click)="goBack()">Back</button>
+
+<div class="order-list-container">
+    <h2>Orders History</h2>
+
+    <form (ngSubmit)="filterOrdersByDate()">
+      <mat-form-field class="medicine-form-field">
+        <mat-label>Search By Order Date</mat-label>
+        <input type="date" matInput [(ngModel)]="filterCriteria.orderDate" name="orderDate" required>
+      </mat-form-field>
+      <button mat-button color="accent" type="submit">Search</button>
+    </form>
+    
+   
     <div *ngIf="orders && orders.length > 0; else noOrders">
       <mat-card *ngFor="let order of orders" class="order-card">
         <mat-card-header>
@@ -50,8 +139,8 @@
       </mat-card>
     </div>
 
-    <!-- Display this if no orders are found -->
+  
     <ng-template #noOrders>
       <p>No orders are present.</p>
     </ng-template>
-</div>
+</div> -->

@@ -16,6 +16,8 @@ import com.wipro.ayurvedamedicine.repository.ICategoryRepository;
 import com.wipro.ayurvedamedicine.repository.IMedicineRepository;
 import com.wipro.ayurvedamedicine.service.IMedicineService;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class MedicineServiceImpl implements IMedicineService {
 
@@ -47,6 +49,7 @@ public class MedicineServiceImpl implements IMedicineService {
 		return modelMapper.map(medicine, MedicineDTO.class);
 	}
 
+	@Transactional
 	@Override
 	public MedicineDTO updateMedicine(MedicineDTO medicineDTO) throws ResourceNotFoundException {
 		if (!medicineRepository.existsById(medicineDTO.getId())) {

@@ -1,8 +1,0 @@
-package com.wipro.ayurvedamedicine.service;
-
-import com.wipro.ayurvedamedicine.dto.CustomerDTO;
-
-public interface IAuthService {
-	
-//	public CustomerDTO login(String usernameEmail,String password);
-}

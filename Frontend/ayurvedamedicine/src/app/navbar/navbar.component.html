@@ -29,7 +29,7 @@
 
   <ng-template #customerNav>
     <button mat-button routerLink="" aria-label="Home">Home</button>
-    <button mat-button routerLink="/medicines" aria-label="Medicines">Medicines</button>
+    <!-- <button mat-button routerLink="/medicines" aria-label="Medicines">Medicines</button> -->
     <ng-container *ngIf="isAuthenticated; else loggedOut">
       <button mat-button routerLink="/customer/order-list" aria-label="View Orders">View Orders</button>
 
